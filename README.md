@@ -28,8 +28,8 @@ Now copy the certificate from docker into your local:
 Make a REST API call to Elasticsearch to test the container:
 ```curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200```
 
-> Windows 11 (powershell):
-> open CMD as admin and import the cert: ```Import-Certificate -FilePath temp\http_ca.crt -CertStoreLocation Cert:\LocalMachine\Root | Out-Null```
+> Windows 11 (powershell) - Run in an admin terminal
+> open CMD as admin and import the cert: ```Import-Certificate -FilePath \temp\http_ca.crt -CertStoreLocation Cert:\LocalMachine\Root | Out-Null```
 > open https://localhost:9200 and enter user `elastic` and your generated pwd
 
 Run the app via maven wrapper on the project:
