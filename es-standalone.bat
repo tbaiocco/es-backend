@@ -1,0 +1,1 @@
+docker run --rm --name es00 -p 9200:9200 -m 1GB -e "discovery.type=single-node" -e "xpack.security.enabled=false" docker.elastic.co/elasticsearch/elasticsearch:8.11.1
