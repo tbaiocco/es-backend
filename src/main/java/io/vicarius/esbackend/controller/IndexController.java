@@ -95,12 +95,12 @@ public class IndexController {
         }
     }
 
-    private Map<String, String> buildLine(IndicesRecord record) {
+    private Map<String, String> buildLine(IndicesRecord indicesRecord) {
         Map<String, String> map = new HashMap<>();
-        map.put("name", record.index());
-        map.put("num of docs", record.docsCount());
-        map.put("uuid", record.uuid());
-        map.put("status", record.status());
+        map.put("name", indicesRecord.index());
+        map.put("num of docs", indicesRecord.docsCount());
+        map.put("uuid", indicesRecord.uuid());
+        map.put("status", indicesRecord.status());
         return map;
     }
 }

@@ -37,7 +37,7 @@ public class SampleDocumentController {
     @PostMapping("/{idxName}/document")
     public ResponseEntity<?> create(@PathVariable String idxName, @RequestBody SampleDocument document) {
 
-        if(StringUtils.isNotEmpty(idxName) && indexService.indexExists(idxName)) {
+        if(StringUtils.isNotEmpty(idxName) && Boolean.TRUE.equals(indexService.indexExists(idxName))) {
             return ResponseEntity.ok(service.createDocumentIntoIndex(document, idxName));
         } else {
             return ResponseEntity.badRequest().body("Index not existing, document not saved");
@@ -54,7 +54,7 @@ public class SampleDocumentController {
     @GetMapping("/{idxName}/document/{id}")
     public ResponseEntity<?> getDocument(@PathVariable String idxName, @PathVariable String id) {
         try {
-            if(StringUtils.isNotEmpty(idxName) && indexService.indexExists(idxName)) {
+            if(StringUtils.isNotEmpty(idxName) && Boolean.TRUE.equals(indexService.indexExists(idxName))) {
                 SampleDocument result = service.getDocumentFromIndexById(idxName, id);
 
                 if(ObjectUtils.isEmpty(result)) {

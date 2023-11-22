@@ -1,6 +1,7 @@
 package io.vicarius.esbackend.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.server.WebServerException;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
@@ -46,7 +47,7 @@ public class ElasticsearchClientConfig extends
                     .build();
         } catch (CertificateException | IOException | NoSuchAlgorithmException | KeyStoreException |
                  KeyManagementException e) {
-            throw new RuntimeException(e);
+            throw new WebServerException("Couldn't create client config", e);
         }
     }
 
@@ -57,9 +58,11 @@ public class ElasticsearchClientConfig extends
             KeyManagementException
     {
 
-        FileInputStream fis = new FileInputStream(certificateFile);
-        CertificateFactory cf = CertificateFactory.getInstance("X.509");
-        Certificate cert = cf.generateCertificate(fis);
+        Certificate cert;
+        try (FileInputStream fis = new FileInputStream(certificateFile)) {
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+            cert = cf.generateCertificate(fis);
+        }
 
         String keyStoreType = KeyStore.getDefaultType();
         KeyStore keyStore = KeyStore.getInstance(keyStoreType);
